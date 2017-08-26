@@ -49,7 +49,7 @@ end
 iis_site 'momo-site' do
   protocol :http
   port 80
-  path node['momo-iis']['install-path']
+  path node['momo-iis']['app-path']
   application_pool 'momo-pool'
   action [:add, :start]
 end
