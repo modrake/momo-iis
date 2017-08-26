@@ -33,9 +33,10 @@ dsc_script 'Web-Mgmt-Console' do
   EOH
 end
 
+include_recipe "dotnetcore::default"
 include_recipe "iis::remove_default_site"
 
-remote_directory node['momo-iis']['install-path'] do
+remote_directory node['momo-iis']['site-path'] do
   source 'momo-iis'
   # might need rights here
   action :create
@@ -49,7 +50,7 @@ end
 iis_site 'momo-site' do
   protocol :http
   port 80
-  path node['momo-iis']['app-path']
+  path node['momo-iis']['site-path']
   application_pool 'momo-pool'
   action [:add, :start]
 end
